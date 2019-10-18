@@ -151,7 +151,7 @@ If you need to generate new self signed certificates use this command
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
 ```
-then you can mount them into the nginx-ssl container using the "volumes" instruction in the docker-compose.xml file. Same thing goes if you need to use custom nginx configurations (you can mount them into /etc/nginx/conf.d). Check the source code of https://github.com/fballiano/docker-nginx-ssl-for-magento2 to better understand where are the configuration stored inside the image/container.
+then you can mount them into the nginx-ssl container using the "volumes" instruction in the docker-compose.xml file. Same thing goes if you need to use custom nginx configurations (you can mount them into /etc/nginx/conf.d). Check the source code of https://github.com/thibaudatl/docker-nginx-ssl-for-magento2 to better understand where are the configuration stored inside the image/container.
 
 ## Scaling apache containers
 If you need more horsepower you can
@@ -167,20 +167,12 @@ You can start your system with just one apache container, then scale it afterwar
 Also, the cron container (which updates Varnish's VCL) sets a "probe" to "/fb_host_probe.txt" every 5 seconds, if 1 fails (container has been shut down) the container is considered sick.
 
 ## Custom php.ini
-We already have a personalized php.ini inside this project: https://github.com/fballiano/docker-magento2-apache-php/blob/master/php.ini but if you want to further customize your settings:
+We already have a personalized php.ini inside this project: https://github.com/thibaudatl/docker-magento2-apache-php/blob/master/php.ini but if you want to further customize your settings:
 - edit the php.ini file in the root directoy of this project
 - edit the "docker-compose.xml" file, look for the 2 commented lines (under the "cron" section and under the "apache" section) referencing the php.ini
 - start/restart the docker stack
 
 Please note that your php.ini will be the last parsed thus you can ovverride any setting.
-
-## Tested on:
-* Docker for Mac 19
-
-## TODO
-* DB clustering?
-* RabbitMQ?
-let me know what features would you like to see implemented.
 
 ## Changelog:
 * 2019-08-09:
